@@ -120,14 +120,14 @@ class AppModel extends BaseModel
         foreach ($allMessages as $message)
         {
             // 假设自己不能跟自己对话
-            if ($message['sender'] == $username)
+            if ($message['sender'] == $username && $message['receiver'] == $who)
             {
                 $temp ['text'] = $message['text'];
                 $temp ['time'] = $message['time'];
                 $temp ['send'] = true;
                 $messages [] = $temp;
             }
-            if ($message['receiver'] == $username)
+            if ($message['receiver'] == $username && $message['sender'] == $who)
             {
                 $temp['text'] = $message['text'];
                 $temp ['time'] = $message['time'];
@@ -136,5 +136,10 @@ class AppModel extends BaseModel
             }
         }
         return ['messages' => $messages, 'avatar' => $avatar];
+    }
+
+    public function newMessage($newMessage)
+    {
+        return $this->db->table('message')->insert($newMessage);
     }
 }

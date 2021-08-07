@@ -65,15 +65,19 @@
                 <div class="d-flex align-items-center">
                     <div class="image"> <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="155"> </div>
                     <div class="ml-3 w-100">
+                        <form action='/ymy/App/chat' method='get'>
                         <h4 class="mb-0 mt-0">{$ma.name}</h4> 
+                        <input name='who' value="{$ma.name}" style="display: none;">
                         <!-- <span>{$ma.name}</span> -->
                         <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                             <div class="d-flex flex-column"> <span class="articles">不幸</span> <span class="number1">{$ma.events}</span> </div>
+                            <input name="events" value="{ma.events" style="display: none;">
                             <!--<div class="d-flex flex-column"> <span class="followers">Followers</span> <span class="number2">980</span> </div>-->
                             <hr>
                             <div class="d-flex flex-column"> <span class="rating">Disorders</span> <span class="number3">{$ma.disorders}</span> </div>
                         </div>
-                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button></div>
+                        <div class="button mt-2 d-flex flex-row align-items-center"> <button type="submit" id="{$ma.name}" onclick="gotochat(id)" class="btn btn-sm btn-outline-primary w-100">Chat</button></div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -86,8 +90,11 @@
             <div class="card p-3">
                 <div class="d-flex align-items-center">
                     <div class="image"> <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="155"> </div>
+                    <!-- <form action='/ymy/App/' -->
                     <div class="ml-3 w-100">
+                        <form action='/ymy/App/chat' method='get'>
                         <h4 class="mb-0 mt-0">{$ad.name}</h4> 
+                        <input name='who' value="{$ad.name}" style="display: none;">
                         <!-- <span>{$ad.name}</span> -->
                         <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                             <div class="d-flex flex-column"> <span class="articles">不幸</span> <span class="number1">{$ad.events}</span> </div>
@@ -95,7 +102,8 @@
                             <hr>
                             <div class="d-flex flex-column"> <span class="rating">Disorders</span> <span class="number3">{$ad.disorders}</span> </div>
                         </div>
-                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button></div>
+                        <div class="button mt-2 d-flex flex-row align-items-center"> <button type="submit" id="{$ad.name}" onclick="gotochat(id)" class="btn btn-sm btn-outline-primary w-100">Chat</button></div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -138,3 +146,20 @@
     </section>-->
 </body>
 {include file='/public/footer'}
+
+<script type="text/javascript" src="/static/bootbox-all-min.js"></script>
+<script type="text/javascript">
+    function gotochat(id) {
+        console.log(id);
+        // return '';
+        // console.log('ho');
+        $.ajax({
+            url: "{:url('App/chat')}",
+            type: 'post',
+            dataType: 'json',
+            data : {who: id},
+        })
+        window.location.href = '/ymy/App/chat?name='+id;
+    }
+    
+</script>

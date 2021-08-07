@@ -3,6 +3,7 @@
 namespace app\ymy\controller;
 
 use app\ymy\model\AppModel;
+use think\Config;
 
 class App extends Base
 {
@@ -83,8 +84,36 @@ class App extends Base
 
     public function chat()
     {
-        $result = $this->model->getMessages('ymy', 'lyt');
-        dump($result);
-        return ; 
+        // if ($this->request->isAjax()) Config::set('default_ajax_return','html');
+        $username = cookie('username');
+        $who = $_GET['who'];
+        $result = $this->model->getMessages($username, $who);
+        $avatar = $result['avatar']['whoAvatar'];
+        // dump($result['messages']);
+        $messages = json_encode($result['messages'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        $this->assign('avatar', $avatar);
+        $this->assign('who', $who);
+        $this->assign('user', $username);
+        $this->assign('messages', $messages);
+        return $this->fetch('chat', [
+            'menuTitle' => 'App',
+            'subTitle' => 'chat',
+        ]);
+    }
+
+    public function newMessage()
+    {
+        $newMessage = [];
+        // $newMessage['sender'] = 'ymy';
+        // $newMessage['receiver'] = 'lyt';
+        // $newMessage['time'] = '2021-8-8 4:5:1';
+        // $newMessage['text'] = 'hi';
+        $newMessage['sender'] = $this->request->post('user');
+        $newMessage['receiver'] = $this->request->post('who');
+        $newMessage['time'] = $this->request->post('time');
+        $newMessage['text'] = $this->request->post('text');
+        $res = $this->model->newMessage($newMessage);
+        if (!$res) return response(-1, '发送失败');
+        return response(1, '发送成功');
     }
 }
