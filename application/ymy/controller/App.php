@@ -25,7 +25,6 @@ class App extends Base
     {
         $username = $this->request->post('username');
         $password = $this->request->post('password');
-        // dump($username);
         $valRes = $this->model->validateUser($username, $password);
         if (!$valRes) return response(-1, '用户不存在或密码错误！');
         cookie('username', $username, 3600);
@@ -35,12 +34,13 @@ class App extends Base
     public function findChat()
     {
         $username = cookie('username');
-        // $events = $this->model->getEvents($username);
-        // $disorders = $this->model->getDisorders($username);
-        dump ($this->model->findClosest($username));
-        return $this->fetch('test', [
+        dump($username);
+        $matches = $this->model->findClosest($username);
+        dump($matches);
+        return $this->fetch('findChat', [
             'menuTitle' => 'App',
-            'subTitle' => 'test',
+            'subTitle' => 'findChat',
+            'matches' => $matches,
         ]);
     }
 

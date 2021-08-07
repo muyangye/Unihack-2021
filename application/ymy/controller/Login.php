@@ -25,13 +25,21 @@ class Login extends Controller
 
     // public function loginDo()
     // {
-    //     // $username = $_POST['username'];
-    //     // $password = $_POST['password'];
-    //     $valRes = $this->model->validateUser($username, $password);
-    //     if (!$valRes) exit(json_encode(['code' => -1, 'message' => '用户不存在或密码错误！'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
-    //     // $_COOKIE['username'] = $username;
-    //     $_SESSION['username'] = $username;
-    //     $this->redirect('ymy/App/index');
+    //     $username = $_POST['username'];
+    //     if (!isset($_COOKIE['username'])) {
+    //         $res = setcookie('username', $username, time()+3600, '/', 'hack.cn');
+    //         echo "setcookie 成功，刷新下页面";
+    //         var_dump($_COOKIE);
+    //         var_dump($res);die;
+    //     } else {
+    //         echo "已设置cookie";
+    //         // var_dump($_COOKIE);
+    //         // 让cookie失效，
+    //         setcookie('username', $username, time()-3600, '/', 'hack.cn');
+    //         // thinkphp redirect
+    //         // header("/ymy/App/findChat");
+    //         $this->redirect('/ymy/App/findChat');
+    //     }
     // }
 
     public function register()

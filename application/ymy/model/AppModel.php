@@ -62,6 +62,7 @@ class AppModel extends BaseModel
         }
         $indices = array_column($result, 'index');
         array_multisort($indices, SORT_DESC, $result);
+        if (count($result) > 5) $result = array_slice($result, 0, 5);
         return $result;
     }
 }

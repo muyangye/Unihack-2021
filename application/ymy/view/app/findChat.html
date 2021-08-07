@@ -1,0 +1,39 @@
+{include file='/public/header'}
+<head>
+
+</head>
+
+<section id="main-content">
+    <section class="wrapper site-min-height">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">以下是与你背景最相似的人儿！</header>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover" id="table_list">
+                            <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>TA经历过以下不幸...</th>
+                                    <th>TA的disorders</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="matches" id="ma"}
+                                    <tr>
+                                        <td>{$ma.name}</td>
+                                        <td>{$ma.events}</td>
+                                        <td>{$ma.disorders}</td>
+                                        <td><button>点击和TA聊天吧！</button></td>
+                                    </tr>
+                                {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+
+{include file='/public/footer'}
