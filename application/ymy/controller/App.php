@@ -32,7 +32,7 @@ class App extends Base
         return response(1, '登陆成功');
     }
 
-    public function test()
+    public function moments()
     {
         dump(cookie('username'));
         return $this->fetch('test', [
@@ -40,4 +40,6 @@ class App extends Base
             'subTitle' => 'test',
         ]);
     }
+
+    public 
 }
