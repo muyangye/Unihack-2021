@@ -75,7 +75,7 @@
     $('.btn-primary').click(function(){
         var data = $('.login-form').serialize();
         $.ajax({
-            url: "{:url('Unihack-2021/public/ymy/App/loginDo')}",
+            url: "{:url('App/loginDo')}",
             type: 'post',
             dataType: 'json',
             data : data,
