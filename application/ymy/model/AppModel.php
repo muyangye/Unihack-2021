@@ -77,6 +77,7 @@ class AppModel extends BaseModel
     public function updateSettings($username, $updData)
     {
         $id = $this->getIdByUsername($username);
+        // dump($id);
         $where['id'] = $id;
         return $this->db->table('user')->where($where)->update($updData);
     }

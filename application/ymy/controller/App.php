@@ -53,22 +53,26 @@ class App extends Base
     {
     }
 
+    public function settings()
+    {
+        $username = cookie('username');
+        return $this->fetch('settings', [
+            'menuTitle' => 'App',
+            'subTitle' => 'settings',
+            'username' => $username,
+        ]);
+    }
+
     public function updateSettings()
     {
         $updData = [];
         $username = cookie('username');
-        // if (empty($this->request->post('username')) exit(json_encode(['code' => -1, 'message' => '用户名不能为空！']));
-        // $updData['username'] = $this->request->post('username');
-        // $updData['events'] = $this->request->post('events');
-        // $updData['disorders'] = $this->request->post('disorders');
-        $updData['name'] = 'ymy';
-        $updData['events'] = '新冠疫情';
-        $updData['disorders'] = '';
+        if (empty($this->request->post('username'))) return response(-1, '用户名不能为空！');
+        $updData['name'] = $this->request->post('username');
+        $updData['events'] = $this->request->post('events');
+        $updData['disorders'] = $this->request->post('disorders');
         $updRes = $this->model->updateSettings($username, $updData);
-        if (!$updRes) exit(json_encode(['code' => -1, 'message' => '更新失败']));
-        return $this->fetch('updateSettings', [
-            'menuTitle' => 'App',
-            'subTitle' => 'updateSettings',
-        ]);
+        if (!$updRes) return response(-1, '保存失败');
+        return response(1, '保存成功');
     }
 }
