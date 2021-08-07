@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{include file='/public/header'}
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="css/style2.css"> -->
-    <link rel="stylesheet" href="style.css">
-    <title> Find someone who knows you</title>
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="/static/chat_style.css">
+    <!-- <title> Find someone who knows you</title> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" type="text/css"
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"
@@ -17,60 +12,16 @@
 </head>
 
 <body>
+    <span id="username" style="display: none;">{$user}</span>
+    <span id="messages" style="display: none;">{$messages}</span>
+    <span id="who" style="display: none;">{$who}</span>
+    <span id="avatar" style="display: none;">{$avatar}</span>
     <div class="container">
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card chat-app">
                     <div id="plist" class="people-list">
-                        <!-- <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div> -->
                         <ul class="list-unstyled chat-list mt-2 mb-0">
-                            <!-- <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Vincent Porter</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>                                            
-                        </div>
-                    </li>
-                    <li class="clearfix active">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Aiden Chavez</div>
-                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Mike Thomas</div>
-                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                        </div>
-                    </li>                                    
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Christian Kelly</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> left 10 hours ago </div>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Monica Ward</div>
-                            <div class="status"> <i class="fa fa-circle online"></i> online </div>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                        <div class="about">
-                            <div class="name">Dean Henry</div>
-                            <div class="status"> <i class="fa fa-circle offline"></i> offline since Oct 28 </div>
-                        </div>
-                    </li> -->
                         </ul>
                     </div>
                     <div class="chat">
@@ -105,8 +56,183 @@
             </div>
         </div>
     </div>
-    <script src="js/chat.js"></script>
 
 </body>
+{include file='/public/footer'}
+<script>
+    const user = document.querySelector('#username').textContent;
+    const who = document.querySelector('#who').textContent;
+    const avatar = document.querySelector('#avatar').textContent;
+    var messages = JSON.parse(document.querySelector('#messages').textContent);
 
-</html>
+    const getAllMessage = (nameToChat, image) => {
+        // 请求nameToChat 和 user 的来聊天记录
+        // messages: dict array
+
+        const friendImage = document.querySelector('#friend-image');
+        friendImage.src = image;
+
+        const friendName = document.querySelector('#friend-name');
+        friendName.textContent = nameToChat;
+
+        for (message of messages) {
+            var timeSplit = message['time'].split(' ')[1].split(':');
+
+            renderMessage(message['send'] ? user : nameToChat,
+                timeSplit[0] + ':' + timeSplit[1], message['text']);
+        }
+    }
+
+    const getPeopleList = () => {
+        // 请求与user 最匹配的五个人
+        avator = [{
+                'myAvator': '1022709.jpeg',
+                'whoAvator': "Yutong",
+                'age': 12
+            },
+            {
+                'myAvator': '1022709.jpeg',
+                'whoAvator': "Muyang",
+                'age': 12
+            },
+            {
+                'myAvator': '1022709.jpeg',
+                'whoAvator': "Yilin",
+                'age': 12
+            },
+            {
+                'myAvator': '1022709.jpeg',
+                'whoAvator': "Peter",
+                'age': 12
+            },
+        ]
+        for (people of avator) {
+            renderPeople(people['myAvator'], people['whoAvator'], people['age']);
+        }
+    }
+
+
+    const btn = document.querySelector('#but');
+
+    btn.onclick = () => {
+        // add to chatbox
+
+        const msg = document.querySelector('#msg');
+        var var_text = msg.value;
+        if (var_text === '') {
+            return;
+        }
+        var current_time = new Date();
+        var hour = current_time.getHours();
+        if (hour <= 9) hour = '0' + hour;
+        var minute = current_time.getMinutes();
+        if (minute <= 9) minute = '0' + minute;
+        var var_time = hour + ':' + minute;
+        var var_user = user;
+
+        renderMessage(var_user, var_time, var_text);
+        msg.value = '';
+
+        var current_time = new Date();
+        var y = current_time.getFullYear();
+        var mo = current_time.getMonth();
+        var d = current_time.getDate();
+        var h = current_time.getHours();
+        var m = current_time.getMinutes();
+        var s = current_time.getSeconds();
+        var backendTime = y + '-' + mo + '-' + d + ' ' + h + ':' + m + ':' + s;
+        // TODO: send to backend
+        const to_backend = {
+            'user': var_user,
+            'text': var_text,
+            'time': backendTime,
+            'who': who
+        };
+        // console.log()
+        $.ajax({
+                url: "{:url('App/newMessage')}",
+                type: 'post',
+                dataType: 'json',
+                data: to_backend,
+            });
+            // .done(function (e) {
+            //     if (e.code == 1) {
+            //         toastr['success'](e.message, '已发送');
+            //     } else {
+            //         toastr['warning'](e.message, '发送失败');
+            //     }
+            // })
+            // .fail(function () {
+            //     toastr['error']("通讯出错", '发送失败');
+            // });
+
+    }
+
+
+    const renderPeople = (var_image, var_username, var_age) => {
+        const peopleList = document.querySelector('.people-list ul');
+
+        const people = document.createElement('li');
+        people.classList.add('clearfix');
+
+        const image = document.createElement('img');
+        image.src = var_image;
+        image.alt = '';
+        people.appendChild(image);
+
+        const info = document.createElement('div');
+        info.classList.add('about');
+        const name = document.createElement('div');
+        name.classList.add('name');
+        name.textContent = var_username;
+        info.appendChild(name);
+        const age = document.createElement('div');
+        age.textContent = var_age + ' Years Old';
+        age.classList.add('status');
+        info.appendChild(age);
+        people.appendChild(info);
+
+        peopleList.appendChild(people);
+        // onclick
+        people.onclick = () => {
+            getAllMessage(var_username, var_image);
+        }
+
+    }
+    const renderMessage = (var_username, var_time, var_text) => {
+        const chatMessages = document.querySelector('.chat-history ul');
+
+        const message = document.createElement('li');
+        message.classList.add('clearfix');
+
+        const time = document.createElement('span');
+        time.classList.add('message-data-time');
+        time.textContent = var_time;
+
+        const timeContainer = document.createElement('div');
+        timeContainer.appendChild(time);
+        message.appendChild(timeContainer);
+        if (var_username === user) {
+            timeContainer.classList.add('message-data', 'text-right');
+        } else {
+            timeContainer.classList.add('message-data');
+        }
+
+        const text = document.createElement('div');
+        text.textContent = var_text;
+        if (var_username === user) {
+            text.classList.add('message', 'other-message', 'float-right');
+
+        } else {
+            text.classList.add('message', 'my-message');
+        }
+
+        message.appendChild(text);
+        chatMessages.appendChild(message);
+        var chat_history = document.querySelector(".chat-history");
+        chat_history.scrollTo(0, chat_history.scrollHeight);
+
+    }
+    getPeopleList();
+    getAllMessage(who, avatar);
+</script>
