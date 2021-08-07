@@ -3,10 +3,7 @@
 namespace app\ymy\controller;
 
 use app\ymy\model\AppModel;
-<<<<<<< HEAD
 use think\Config;
-=======
->>>>>>> a04e19de1a9cb51692a5e1160e2aa4ad8206d3a9
 
 class App extends Base
 {
@@ -87,7 +84,6 @@ class App extends Base
 
     public function chat()
     {
-<<<<<<< HEAD
         // if ($this->request->isAjax()) Config::set('default_ajax_return','html');
         $username = cookie('username');
         $who = $_GET['who'];
@@ -119,10 +115,5 @@ class App extends Base
         $res = $this->model->newMessage($newMessage);
         if (!$res) return response(-1, '发送失败');
         return response(1, '发送成功');
-=======
-        $result = $this->model->getMessages('ymy', 'lyt');
-        dump($result);
-        return ; 
->>>>>>> a04e19de1a9cb51692a5e1160e2aa4ad8206d3a9
     }
 }
