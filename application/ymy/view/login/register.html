@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                             <hr/>
-                            <div class="input-group">
+                                <div class="input-group">用户名：
                                 <input type="text" name="username" class="form-control" placeholder="Choose Username">
                                 <span class="md-line"></span>
                             </div>
@@ -28,29 +28,27 @@
                                 <input type="text" class="form-control" placeholder="Your Email Address">
                                 <span class="md-line"></span>
                             </div>-->
-                            <div class="input-group">
+                            <div class="input-group">密码：
                                 <input type="password" name="password" class="form-control" placeholder="Choose Password">
                                 <span class="md-line"></span>
                             </div>
 
-                            <div class="input-group">
+                            <div class="input-group">头像地址：
                                 <input type="text" name="avatar_url" class="form-control" placeholder="Copy the Link of Your Avatar">
                                 <span class="md-line"></span>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">您的角色</label>
-                                <div class="col-sm-9">
-                                    <select name="role" class="form-control">
-                                        <option value="victim">受害者</option>
-                                        <option value="advisor">Advisor</option>
-                                    </select>
-                                </div>
+                            <div class="col-lg-12 input-group">
+                                <span>您是以下哪个角色？</span>
+                                <select name="role" class="form-control">
+                                    <option value="victim">受害者</option>
+                                    <option value="advisor">Advisor</option>
+                                </select>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">您经历的事件</label>
-                                <div class="col-sm-9 checkbox form-control">
+                            <div class="col-lg-12 input-group">
+                                <span>您经历了以下哪些事件？</span>
+                                <div class="checkbox form-control">
                                     <label>
                                         <input type="checkbox" name="covid" value="新冠疫情">新冠疫情
                                     </label>
@@ -66,9 +64,9 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">您有的disorders</label>
-                                <div class="col-sm-9 checkbox form-control">
+                            <div class="col-lg-12 input-group">
+                                <span>您现在有哪些mental disorders？</span>
+                                <div class="checkbox form-control">
                                     <label>
                                         <input type="checkbox" name="PTSD" value="PTSD">PTSD
                                     </label>
@@ -106,7 +104,7 @@
 <script type="text/javascript">
     $('.btn').click(function(){
         var data = $('.login-form').serialize();
-        console.log(data);
+        // console.log(data);S
         $.ajax({
             url: "{:url('Login/registerDo')}",
             type: 'post',
