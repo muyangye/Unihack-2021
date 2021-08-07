@@ -35,9 +35,8 @@ class App extends Base
     public function findChat()
     {
         $username = cookie('username');
-        $events = $this->model->getEvents($username);
-        $disorders = $this->model->getDisorders($username);
-        // 先根据拥有最多相同经历的匹配，再根据拥有最多相同mental disorders的匹配
+        // $events = $this->model->getEvents($username);
+        // $disorders = $this->model->getDisorders($username);
         dump ($this->model->findClosest($username));
         return $this->fetch('test', [
             'menuTitle' => 'App',

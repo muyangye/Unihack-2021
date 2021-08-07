@@ -19,36 +19,21 @@ class AppModel extends BaseModel
         return true;
     }
 
-    public function getEvents($username)
-    {
-        $where['name'] = $username;
-        $events = explode(',', $this->db->table('user')->where($where)->find()['events']);
-        return $events;
-    }
-
-    public function getDisorders($username)
-    {
-        $where['name'] = $username;
-        $disorders = explode(',', $this->db->table('user')->where($where)->find()['disorders']);
-        return $disorders;
-    }
-
     public function findClosest($username)
     {
         $allUsers = $this->db->table('user')->field(['name', 'events', 'disorders'])->select();
-        dump($this->db->getLastSql());
+        // dump($this->db->getLastSql());
         $myEvents = $myDisorders = [];
         // 两次循环，避免重查数据库
         foreach ($allUsers as $user)
         {
             if ($user['name'] == $username)
             {
-                $myEvents = $user['events'];
-                $myDisorders = $user['disorders'];
+                $myEvents = explode(',', $user['events']);
+                $myDisorders = explode(',', $user['disorders']);
             }
         }
         $result = [];
-        // dump($allUsers);
         foreach ($allUsers as $user)
         {
             // 自己不能匹配到自己
@@ -57,22 +42,26 @@ class AppModel extends BaseModel
             if (empty($myEvents) || empty($user['events'])) $eventsIndex = 0;
             else
             {
+                $userEvents = explode(',', $user['events']);
                 foreach ($myEvents as $myEvent)
                 {
-                    if (array_search($myEvent, $user['events'])) $eventsIndex += 1;
+                    if (in_array($myEvent, $userEvents)) $eventsIndex += 1;
                 }
             }
             if (empty($myDisorders) || empty($user['disorders'])) $disordersIndex = 0;
             else
             {
+                $userDisorders = explode(',', $user['disorders']);
                 foreach ($myDisorders as $myDisorder)
                 {
-                    if (array_search($myDisorder, $user['disorders'])) $disordersIndex += 1;
+                    if (in_array($myDisorder, $userDisorders)) $disordersIndex += 1;
                 }
             }
             // 优先匹配拥有相同经历的
             $result [] = array_merge($user, ['index' => 1.5 * $eventsIndex + $disordersIndex]);
         }
+        $indices = array_column($result, 'index');
+        array_multisort($indices, SORT_DESC, $result);
         return $result;
     }
 }
