@@ -56,14 +56,19 @@ class App extends Base
     public function updateSettings()
     {
         $updData = [];
-        $updData['username'] = $this->request->post('username');
-        $updData['events'] = $this->request->post('events');
-        $updData['disorders'] = $this->request->post('disorders');
-        $updRes = $this->model->updSettings($updData);
+        $username = cookie('username');
+        // if (empty($this->request->post('username')) exit(json_encode(['code' => -1, 'message' => '用户名不能为空！']));
+        // $updData['username'] = $this->request->post('username');
+        // $updData['events'] = $this->request->post('events');
+        // $updData['disorders'] = $this->request->post('disorders');
+        $updData['name'] = 'ymy';
+        $updData['events'] = '新冠疫情';
+        $updData['disorders'] = '';
+        $updRes = $this->model->updateSettings($username, $updData);
         if (!$updRes) exit(json_encode(['code' => -1, 'message' => '更新失败']));
-        return $this->fetch('changeSettings', [
+        return $this->fetch('updateSettings', [
             'menuTitle' => 'App',
-            'subTitle' => 'changeSettings',
+            'subTitle' => 'updateSettings',
         ]);
     }
 }

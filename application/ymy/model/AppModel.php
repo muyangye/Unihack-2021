@@ -10,6 +10,13 @@ class AppModel extends BaseModel
     {
         parent::__construct();
     }
+
+    public function getIdByUsername($username)
+    {
+        $where['name'] = $username;
+        return $this->db->table('user')->where($where)->find()['id'];
+    }
+
     public function validateUser($username, $password)
     {
         $where['name'] = $username;
@@ -65,5 +72,12 @@ class AppModel extends BaseModel
         array_multisort($indices, SORT_DESC, $result);
         if (count($result) > 5) $result = array_slice($result, 0, 5);
         return $result;
+    }
+
+    public function updateSettings($username, $updData)
+    {
+        $id = $this->getIdByUsername($username);
+        $where['id'] = $id;
+        return $this->db->table('user')->where($where)->update($updData);
     }
 }
