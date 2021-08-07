@@ -6,17 +6,17 @@ use think\Config;
 
 class Base extends Controller
 {
-    public $name;
+    public $username;
     public function __construct()
     {
         parent::__construct();
-        $this->name = 'USC';
+        // var_dump($_COOKIE);
+        // $this->username = $_SESSION['username'];
         $this->param = $this->request->param();
     }
 
-    public function getUSCName()
+    public function getName()
     {
-        print_r($this->param);
-        return ;
+
     }
 }

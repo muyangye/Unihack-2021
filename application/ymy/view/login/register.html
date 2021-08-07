@@ -1,46 +1,112 @@
 {include file='/public/header'}
-<head>
+<head>    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />   
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="/static/header/toastr.css" type="text/css" rel="stylesheet">
 </head>
-
-<section id="main-content">
-    <section class="wrapper site-min-height">
+<section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+    <!-- Container-fluid starts -->
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
-                <section class="panel">
-                    <header class="panel-heading">注册账号</header>
-                    <div class="panel-body">
-                        <form class="form-horizontal login-form" role="form">
-                            <div class="form-group">
-                                <div class="col-lg-8 input-group">
-                                    <span class="input-group-addon" style="width: 200px;">用户名</span>
-                                    <input type="text" class="form-control" name="username" placeholder="请设置用户名">
+            <div class="col-sm-12">
+                <!-- Authentication card start -->
+                <div class="signup-card card-block auth-body mr-auto ml-auto" style="color: black">
+                    <form class="md-float-material login-form" role="form">
+                        <div class="auth-box">
+                            <div class="row m-b-20">
+                                <div class="col-md-12">
+                                    <h3 class="text-center txt-primary">Sign up. It is fast and easy.</h3>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-lg-8 input-group">
-                                    <span class="input-group-addon" style="width: 200px;">密码</span>
-                                    <input type="text" class="form-control" name="password" placeholder="请设置密码">
+                            <hr/>
+                            <div class="input-group">
+                                <input type="text" name="username" class="form-control" placeholder="Choose Username">
+                                <span class="md-line"></span>
+                            </div>
+                            <!--<div class="input-group">
+                                <input type="text" class="form-control" placeholder="Your Email Address">
+                                <span class="md-line"></span>
+                            </div>-->
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" placeholder="Choose Password">
+                                <span class="md-line"></span>
+                            </div>
+
+                            <div class="input-group">
+                                <input type="text" name="avatar_url" class="form-control" placeholder="Copy the Link of Your Avatar">
+                                <span class="md-line"></span>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">您的角色</label>
+                                <div class="col-sm-9">
+                                    <select name="role" class="form-control">
+                                        <option value="victim">受害者</option>
+                                        <option value="advisor">Advisor</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group" style="margin-top: 40px;">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="button" class="btn btn-info register">注册</button>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">您经历的事件</label>
+                                <div class="col-sm-9 checkbox form-control">
+                                    <label>
+                                        <input type="checkbox" name="covid" value="新冠疫情">新冠疫情
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="rainstorm" value="暴雨灾害">暴雨灾害
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="typhoon" value="台风灾害">台风灾害
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="sexual" value="性骚扰/性侵害">性骚扰/性侵害
+                                    </label>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </section>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">您有的disorders</label>
+                                <div class="col-sm-9 checkbox form-control">
+                                    <label>
+                                        <input type="checkbox" name="PTSD" value="PTSD">PTSD
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="depression" value="抑郁">抑郁
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="anxiety" value="焦虑">焦虑
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row m-t-30">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now.</button>
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
+                    </form>
+                    <!-- end of form -->
+                </div>
+                <!-- Authentication card end -->
             </div>
+            <!-- end of col-sm-12 -->
         </div>
-    </section>
+        <!-- end of row -->
+    </div>
+    <!-- end of container-fluid -->
 </section>
 
 {include file='/public/footer'}
 
 <script type="text/javascript" src="/static/bootbox-all-min.js"></script>
 <script type="text/javascript">
-    $('.btn-info').click(function(){
+    $('.btn').click(function(){
         var data = $('.login-form').serialize();
+        console.log(data);
         $.ajax({
             url: "{:url('Login/registerDo')}",
             type: 'post',
