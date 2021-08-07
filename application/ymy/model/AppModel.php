@@ -120,14 +120,22 @@ class AppModel extends BaseModel
         foreach ($allMessages as $message)
         {
             // 假设自己不能跟自己对话
+<<<<<<< HEAD
             if ($message['sender'] == $username && $message['receiver'] == $who)
+=======
+            if ($message['sender'] == $username)
+>>>>>>> a04e19de1a9cb51692a5e1160e2aa4ad8206d3a9
             {
                 $temp ['text'] = $message['text'];
                 $temp ['time'] = $message['time'];
                 $temp ['send'] = true;
                 $messages [] = $temp;
             }
+<<<<<<< HEAD
             if ($message['receiver'] == $username && $message['sender'] == $who)
+=======
+            if ($message['receiver'] == $username)
+>>>>>>> a04e19de1a9cb51692a5e1160e2aa4ad8206d3a9
             {
                 $temp['text'] = $message['text'];
                 $temp ['time'] = $message['time'];
@@ -137,9 +145,12 @@ class AppModel extends BaseModel
         }
         return ['messages' => $messages, 'avatar' => $avatar];
     }
+<<<<<<< HEAD
 
     public function newMessage($newMessage)
     {
         return $this->db->table('message')->insert($newMessage);
     }
+=======
+>>>>>>> a04e19de1a9cb51692a5e1160e2aa4ad8206d3a9
 }
