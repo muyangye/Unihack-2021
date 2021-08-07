@@ -6,7 +6,7 @@ use app\ymy\model\AppModel;
 
 class App extends Base
 {
-    public $username;
+    // public $username;
     public function __construct()
     {
         parent::__construct();
@@ -32,14 +32,20 @@ class App extends Base
         return response(1, '登陆成功');
     }
 
-    public function moments()
+    public function findChat()
     {
-        dump(cookie('username'));
+        $username = cookie('username');
+        $events = $this->model->getEvents($username);
+        $disorders = $this->model->getDisorders($username);
+        // 先根据拥有最多相同经历的匹配，再根据拥有最多相同mental disorders的匹配
+        
         return $this->fetch('test', [
             'menuTitle' => 'App',
             'subTitle' => 'test',
         ]);
     }
 
-    public 
+    public function findAdvisorChat()
+    {
+    }
 }

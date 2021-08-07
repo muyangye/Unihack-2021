@@ -48,7 +48,15 @@ class Login extends Controller
         $password = $this->request->post('password');
         if (empty($username)) return response(-1, '用户名不能为空！');
         if (empty($password)) return response(-1, '密码不能为空！');
-        $registerRes = $this->model->register($username, $password);
+        $events = $disorders = [];
+        if (!empty($this->request->post('covid'))) $events [] = 'covid';
+        if (!empty($this->request->post('rainstorm'))) $events [] = 'rainstorm';
+        if (!empty($this->request->post('typhoon'))) $events [] = 'typhoon';
+        if (!empty($this->request->post('sexual'))) $events [] = 'sexual';
+        if (!empty($this->request->post('PTSD'))) $disorders [] = 'PTSD';
+        if (!empty($this->request->post('depression'))) $disorders [] = 'depression';
+        if (!empty($this->request->post('anxiety'))) $disorders [] = 'anxiety';
+        $registerRes = $this->model->register($username, $password, $events, $disorders);
         if ($registerRes) return response(1, '注册成功');
         else return response(-1, '注册失败');
     }

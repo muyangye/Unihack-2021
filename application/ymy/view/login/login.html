@@ -1,6 +1,6 @@
 {include file='/public/header'}
 <head>
-    <link rel="stylesheet" href="./login.css">
+    <!-- <link rel="stylesheet" href="./login.css"> -->
 </head>
 
 <section id="main-content">
@@ -54,7 +54,7 @@
         {
             if (e.code == 1) {
                 toastr['success'](e.message, '登陆成功');
-                window.location.href = '/ymy/App/test';
+                window.location.href = '/ymy/App/findChat';
             } else {
                 toastr['warning'](e.message, '用户不存在或密码错误！');
             }

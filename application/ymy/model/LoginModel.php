@@ -6,10 +6,8 @@ use think\Model;
 
 class LoginModel extends BaseModel
 {
-    // public $db;
     public function __construct()
     {
-        // $this->db = Db::connect();
         parent::__construct();
     }
 
@@ -19,21 +17,14 @@ class LoginModel extends BaseModel
         return $this->db->table('user')->where($where)->find();
     }
 
-    public function register($username, $password)
+    public function register($username, $password, $events, $disorders)
     {
         $data = [];
         $data['name'] = $username;
         $data['password'] = md5($password);
+        $data['events'] = implode(',', $events);
+        $data['disorders'] = implode(',', $disorders);
         $registerRes = $this->db->table('user')->insert($data);
         return $registerRes;
     }
-
-    // public function validateUser($username, $password)
-    // {
-    //     $where['name'] = $username;
-    //     $data = $this->db->table('user')->where($where)->find();
-    //     if (empty($data)) return false;
-    //     if ($data['password'] != md5($password)) return false;
-    //     return true;
-    // }
 }
