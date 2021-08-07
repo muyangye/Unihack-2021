@@ -4,12 +4,13 @@ namespace app\ymy\model;
 use think\Db;
 use think\Model;
 
-class LoginModel
+class LoginModel extends BaseModel
 {
-    public $db;
+    // public $db;
     public function __construct()
     {
-        $this->db = Db::connect();
+        // $this->db = Db::connect();
+        parent::__construct();
     }
 
     public function getIdByName($name)
@@ -27,12 +28,12 @@ class LoginModel
         return $registerRes;
     }
 
-    public function validateUser($username, $password)
-    {
-        $where['name'] = $username;
-        $data = $this->db->table('user')->where($where)->find();
-        if (empty($data)) return false;
-        if ($data['password'] != md5($password)) return false;
-        return true;
-    }
+    // public function validateUser($username, $password)
+    // {
+    //     $where['name'] = $username;
+    //     $data = $this->db->table('user')->where($where)->find();
+    //     if (empty($data)) return false;
+    //     if ($data['password'] != md5($password)) return false;
+    //     return true;
+    // }
 }

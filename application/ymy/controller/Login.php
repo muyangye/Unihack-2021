@@ -2,14 +2,16 @@
 
 namespace app\ymy\controller;
 
+use think\Controller;
 use app\ymy\model\LoginModel;
 
-class Login extends Base
+class Login extends Controller
 {
-    public $username;
+    // public $username;
     public function __construct()
     {
         parent::__construct();
+        session_start();
         $this->model = new LoginModel();
     }
 
@@ -21,20 +23,22 @@ class Login extends Base
         ]);
     }
 
-    public function loginDo()
-    {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $valRes = $this->model->validateUser($username, $password);
-        if (!$valRes) exit(json_encode(['code' => -1, 'message' => '用户不存在或密码错误！'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
-        $this->redirect('ymy/App/index');
-    }
+    // public function loginDo()
+    // {
+    //     // $username = $_POST['username'];
+    //     // $password = $_POST['password'];
+    //     $valRes = $this->model->validateUser($username, $password);
+    //     if (!$valRes) exit(json_encode(['code' => -1, 'message' => '用户不存在或密码错误！'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
+    //     // $_COOKIE['username'] = $username;
+    //     $_SESSION['username'] = $username;
+    //     $this->redirect('ymy/App/index');
+    // }
 
     public function register()
     {
         return $this->fetch('register', [
             'menuTitle' => 'Login',
-            'subTitle' => 'register'
+            'subTitle' => 'register',
         ]);
     }
 

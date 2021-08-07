@@ -9,7 +9,7 @@
                 <section class="panel">
                     <header class="panel-heading">登录</header>
                     <div class="panel-body">
-                        <form action="/ymy/Login/loginDo" class="form-horizontal" role="form" method="post">
+                        <form class="form-horizontal login-form" role="form">
                             <div class="form-group">
                                 <div class="col-lg-8 input-group">
                                     <span class="input-group-addon" style="width: 200px;">用户名</span>
@@ -24,7 +24,7 @@
                             </div>
                             <div class="form-group" style="margin-top: 40px;">
                                 <div class="col-lg-offset-2 col-lg-10">
-                                    <button type="submit" class="btn btn-primary">登录</button>
+                                    <button type="button" class="btn btn-primary">登录</button>
                                     <button type="button" class="btn btn-info" onclick="window.location.href='/ymy/Login/register'">注册</button>
                                     <button type="button" class="btn btn-danger">忘记/修改密码</button>
                                 </div>
@@ -38,3 +38,29 @@
 </section>
 
 {include file='/public/footer'}
+
+<script type="text/javascript" src="/static/bootbox-all-min.js"></script>
+<script type="text/javascript">
+    $('.btn-primary').click(function(){
+        var data = $('.login-form').serialize();
+        $.ajax({
+            url: "{:url('App/loginDo')}",
+            type: 'post',
+            dataType: 'json',
+            data : data,
+        })
+        .done(function(e)
+        {
+            if (e.code == 1) {
+                toastr['success'](e.message, '登陆成功');
+                window.location.href = '/ymy/App/test';
+            } else {
+                toastr['warning'](e.message, '用户不存在或密码错误！');
+            }
+        })
+        .fail(function()
+        {
+            toastr['error']("通讯出错", '登录失败');
+        });
+    })
+</script>
