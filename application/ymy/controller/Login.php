@@ -56,6 +56,8 @@ class Login extends Controller
         $password = $this->request->post('password');
         if (empty($username)) return response(-1, '用户名不能为空！');
         if (empty($password)) return response(-1, '密码不能为空！');
+        $role = $this->request->post('role');
+        $avatar = !empty($this->request->post('avatar_url')) ? $this->request->post('avatar_url') : 'https://www.syfy.com/sites/syfy/files/styles/1140x640_hero/public/2017/06/oneroom1.jpg';
         $events = $disorders = [];
         if (!empty($this->request->post('covid'))) $events [] = '新冠疫情';
         if (!empty($this->request->post('rainstorm'))) $events [] = '暴雨灾害';
@@ -64,7 +66,7 @@ class Login extends Controller
         if (!empty($this->request->post('PTSD'))) $disorders [] = 'PTSD';
         if (!empty($this->request->post('depression'))) $disorders [] = '抑郁';
         if (!empty($this->request->post('anxiety'))) $disorders [] = '焦虑';
-        $registerRes = $this->model->register($username, $password, $events, $disorders);
+        $registerRes = $this->model->register($username, $password, $avatar, $role, $events, $disorders);
         if ($registerRes) return response(1, '注册成功');
         else return response(-1, '注册失败');
     }

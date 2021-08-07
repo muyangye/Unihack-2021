@@ -65,12 +65,35 @@
                 <div class="d-flex align-items-center">
                     <div class="image"> <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="155"> </div>
                     <div class="ml-3 w-100">
-                        <h4 class="mb-0 mt-0">Sandra Batista</h4> <span>{$ma.name}</span>
+                        <h4 class="mb-0 mt-0">{$ma.name}</h4> 
+                        <!-- <span>{$ma.name}</span> -->
                         <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
                             <div class="d-flex flex-column"> <span class="articles">不幸</span> <span class="number1">{$ma.events}</span> </div>
                             <!--<div class="d-flex flex-column"> <span class="followers">Followers</span> <span class="number2">980</span> </div>-->
                             <hr>
                             <div class="d-flex flex-column"> <span class="rating">Disorders</span> <span class="number3">{$ma.disorders}</span> </div>
+                        </div>
+                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/volist}
+    </div>
+    <div class="col-md-10">
+        {volist name="advisors" id="ad"}
+        <div class="container col-md-6">
+            <div class="card p-3">
+                <div class="d-flex align-items-center">
+                    <div class="image"> <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="155"> </div>
+                    <div class="ml-3 w-100">
+                        <h4 class="mb-0 mt-0">{$ad.name}</h4> 
+                        <!-- <span>{$ad.name}</span> -->
+                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                            <div class="d-flex flex-column"> <span class="articles">不幸</span> <span class="number1">{$ad.events}</span> </div>
+                            <!--<div class="d-flex flex-column"> <span class="followers">Followers</span> <span class="number2">980</span> </div>-->
+                            <hr>
+                            <div class="d-flex flex-column"> <span class="rating">Disorders</span> <span class="number3">{$ad.disorders}</span> </div>
                         </div>
                         <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button></div>
                     </div>

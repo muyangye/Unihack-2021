@@ -34,18 +34,19 @@ class App extends Base
     public function findChat()
     {
         $username = cookie('username');
-        dump($username);
+        // dump($username);
         $matches = $this->model->findClosest($username);
         // foreach ($matches as &$match)
         // {
         //     $match['events'] = $eventToChinese[$match['event']];
         //     $match['disorders'] = $disorderToChinese[$match['disorder']];
         // }
-        dump($matches);
+        // dump($matches);die;
         return $this->fetch('findChat', [
             'menuTitle' => 'App',
             'subTitle' => 'findChat',
-            'matches' => $matches,
+            'matches' => $matches[0],
+            'advisors' => $matches[1],
         ]);
     }
 
@@ -56,10 +57,14 @@ class App extends Base
     public function settings()
     {
         $username = cookie('username');
+        $events = $this->model->getEvents($username);
+        $disorders = $this->model->getDisorders($username);
         return $this->fetch('settings', [
             'menuTitle' => 'App',
             'subTitle' => 'settings',
             'username' => $username,
+            'events' => $events,
+            'disorders' => $disorders,
         ]);
     }
 
@@ -74,5 +79,12 @@ class App extends Base
         $updRes = $this->model->updateSettings($username, $updData);
         if (!$updRes) return response(-1, '保存失败');
         return response(1, '保存成功');
+    }
+
+    public function chat()
+    {
+        $result = $this->model->getMessages('ymy', 'lyt');
+        dump($result);
+        return ; 
     }
 }
