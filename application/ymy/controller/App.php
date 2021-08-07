@@ -38,7 +38,7 @@ class App extends Base
         $events = $this->model->getEvents($username);
         $disorders = $this->model->getDisorders($username);
         // 先根据拥有最多相同经历的匹配，再根据拥有最多相同mental disorders的匹配
-        
+        dump ($this->model->findClosest($username));
         return $this->fetch('test', [
             'menuTitle' => 'App',
             'subTitle' => 'test',
