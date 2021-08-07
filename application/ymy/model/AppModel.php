@@ -60,6 +60,7 @@ class AppModel extends BaseModel
             // 优先匹配拥有相同经历的
             $result [] = array_merge($user, ['index' => 1.5 * $eventsIndex + $disordersIndex]);
         }
+        // 最相近的五个
         $indices = array_column($result, 'index');
         array_multisort($indices, SORT_DESC, $result);
         if (count($result) > 5) $result = array_slice($result, 0, 5);
