@@ -1,0 +1,117 @@
+{include file='/public/header'}
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #B3E5FC;
+            border-radius: 10px
+        }
+
+        .card {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            background-color: #fff;
+            font-size: 20px;
+        }
+
+        .stats {
+            background: #f2f5f8 !important;
+            color: #000 !important
+        }
+
+        .articles {
+            font-size: 15px;
+            color: #a1aab9
+        }
+
+        .number1 {
+            font-weight: 500
+        }
+
+        .followers {
+            font-size: 15px;
+            color: #a1aab9
+        }
+
+        .number2 {
+            font-weight: 500
+        }
+
+        .rating {
+            font-size: 15px;
+            color: #a1aab9
+        }
+
+        .number3 {
+            font-weight: 500
+        }
+        .btn {
+            font-size: 15px;
+        }
+        .mt-0 {
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        {volist name="matches" id="ma"}
+        <div class="container col-md-6">
+            <div class="card p-3">
+                <div class="d-flex align-items-center">
+                    <div class="image"> <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" class="rounded" width="155"> </div>
+                    <div class="ml-3 w-100">
+                        <h4 class="mb-0 mt-0">Sandra Batista</h4> <span>{$ma.name}</span>
+                        <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                            <div class="d-flex flex-column"> <span class="articles">不幸</span> <span class="number1">{$ma.events}</span> </div>
+                            <!--<div class="d-flex flex-column"> <span class="followers">Followers</span> <span class="number2">980</span> </div>-->
+                            <hr>
+                            <div class="d-flex flex-column"> <span class="rating">Disorders</span> <span class="number3">{$ma.disorders}</span> </div>
+                        </div>
+                        <div class="button mt-2 d-flex flex-row align-items-center"> <button class="btn btn-sm btn-outline-primary w-100">Chat</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/volist}
+    </div>
+    <div class="col-md-1"></div>
+    <!--<section id="main-content">
+        <section class="wrapper site-min-height">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">以下是与你背景最相似的人儿！</header>
+                        <div class="panel-body">
+
+                            <table class="table table-bordered table-hover" id="table_list">
+                                <thead>
+                                    <tr>
+                                        <th>用户名</th>
+                                        <th>TA经历过以下不幸...</th>
+                                        <th>TA的disorders</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name="matches" id="ma"}
+                                        <tr>
+                                            <td>{$ma.name}</td>
+                                            <td>{$ma.events}</td>
+                                            <td>{$ma.disorders}</td>
+                                            <td><button>点击和TA聊天吧！</button></td>
+                                        </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </section>-->
+</body>
+{include file='/public/footer'}
