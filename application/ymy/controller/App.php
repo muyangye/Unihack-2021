@@ -52,6 +52,7 @@ class App extends Base
             'subTitle' => 'findChat',
             'matches' => $matches[0],
             'advisors' => $matches[1],
+            'username' => $username
         ]);
     }
 

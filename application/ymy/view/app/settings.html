@@ -6,7 +6,6 @@
   <link href="/static/header/toastr.css" type="text/css" rel="stylesheet">
   <style>
     body {
-      margin-top: 20px;
       color: #1a202c;
       text-align: left;
       background-color: #e2e8f0;
@@ -86,6 +85,34 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">ConnectMe</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse jd-flex flex-row-reverse" id="navbarSupportedContent">   
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="../../ymy/App/findChat">
+                    Find Friends
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="../../ymy/Login/login">
+                  Logout
+                  </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../ymy/App/settings">
+                    Hello, {$username}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
   <div class="container">
 		<div class="main-body">
 			<div class="row">
