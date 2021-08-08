@@ -4,6 +4,7 @@ namespace app\ymy\controller;
 
 use app\ymy\model\AppModel;
 use think\Config;
+use think\Cookie;
 
 class App extends Base
 {
@@ -28,13 +29,16 @@ class App extends Base
         $password = $this->request->post('password');
         $valRes = $this->model->validateUser($username, $password);
         if (!$valRes) return response(-1, '用户不存在或密码错误！');
-        cookie('username', $username, 3600);
+        // cookie('username', $username, 3600);
+        $opt = ['expire' => time()+3600];
+        Cookie::set('username', $username, $opt);
         return response(1, '登陆成功');
     }
 
     public function findChat()
     {
-        $username = cookie('username');
+        // $username = Cookie::get('username');
+        $username = $this->username;
         // dump($username);
         $matches = $this->model->findClosest($username);
         // foreach ($matches as &$match)
@@ -57,7 +61,9 @@ class App extends Base
 
     public function settings()
     {
-        $username = cookie('username');
+        $username = Cookie::get('username');
+        $model = new AppModel();
+        $avatar = $model->db->table('user')->where(['name' => $username])->find()['avatar_url'];
         $events = $this->model->getEvents($username);
         $disorders = $this->model->getDisorders($username);
         return $this->fetch('settings', [
@@ -66,13 +72,14 @@ class App extends Base
             'username' => $username,
             'events' => $events,
             'disorders' => $disorders,
+            'avatar' => $avatar,
         ]);
     }
 
     public function updateSettings()
     {
         $updData = [];
-        $username = cookie('username');
+        $username = Cookie::get('username');
         if (empty($this->request->post('username'))) return response(-1, '用户名不能为空！');
         $updData['name'] = $this->request->post('username');
         $updData['events'] = $this->request->post('events');
@@ -85,9 +92,18 @@ class App extends Base
     public function chat()
     {
         // if ($this->request->isAjax()) Config::set('default_ajax_return','html');
-        $username = cookie('username');
+        $username = Cookie::get('username');
         $who = $_GET['who'];
         $result = $this->model->getMessages($username, $who);
+        $findRes = $this->model->findClosest($username);
+        $closest = $findRes[0];
+        $advisors = $findRes[1];
+        // $people = array_merge($closest, $advisors);
+        // dump($people);die;
+        // $advisors = $this->model->findAdvisors($username);
+        $people = json_encode(array_merge($closest, $advisors), JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        // dump($people);
+        // dump(array_merge($closest, $advisors));
         $avatar = $result['avatar']['whoAvatar'];
         // dump($result['messages']);
         $messages = json_encode($result['messages'], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
@@ -95,6 +111,7 @@ class App extends Base
         $this->assign('who', $who);
         $this->assign('user', $username);
         $this->assign('messages', $messages);
+        $this->assign('people', $people);
         return $this->fetch('chat', [
             'menuTitle' => 'App',
             'subTitle' => 'chat',
