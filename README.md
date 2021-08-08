@@ -1,4 +1,4 @@
-# PsyChonnect：创伤事件后心理援助平台
+# PSYConnect：创伤事件后心理援助平台
 
 ## What inspires us
 
@@ -88,4 +88,3 @@
 - ajax和form action和window.location.href三种跳转及传输数据到后端的区别
 - ThinkPHP框架中fetch与ajax联用会把html自动变成字符串，这个框架的"bug"无法修正，可能作者觉得这样不make sense，最终直接改为其他方式
 - 不应该根据名字去查数据，否则就会出现比如修改名字后聊天记录丢失的bug(现在就有)
-- 
