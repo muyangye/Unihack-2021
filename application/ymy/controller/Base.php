@@ -13,6 +13,9 @@ class Base extends Controller
         // var_dump($_COOKIE);
         // $this->username = $_SESSION['username'];
         $this->param = $this->request->param();
+        if (!isset($_COOKIE['username'])) $this->redirect('ymy/login/login');
+
+        $this->username = $_COOKIE['username'];
     }
 
     public function getName()

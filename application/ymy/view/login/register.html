@@ -106,7 +106,6 @@
 <script type="text/javascript">
     $('.btn').click(function(){
         var data = $('.login-form').serialize();
-        console.log(data);
         $.ajax({
             url: "{:url('Login/registerDo')}",
             type: 'post',

@@ -41,7 +41,7 @@ class AppModel extends BaseModel
     // 找到与自己经历最相似的受害者
     public function findClosest($username)
     {
-        $allUsers = $this->db->table('user')->field(['name', 'role', 'events', 'disorders', 'avatar_url'])->select();
+        $allUsers = $this->db->table('user')->field(['name', 'avatar_url', 'role', 'events', 'disorders'])->select();
         // dump($this->db->getLastSql());
         $myEvents = $myDisorders = [];
         // 两次循环，避免重查数据库
@@ -93,9 +93,10 @@ class AppModel extends BaseModel
         return [$result, $advisors];
     }
 
-    public function findAdvisors()
+    public function findAdvisors($username)
     {
-
+        $where['name'] = $username;
+        return $this->db->table('user')->where($where)->field(['name', 'avatar_url', 'role', 'events', 'disorders'])->select();
     }
 
     public function updateSettings($username, $updData)
@@ -137,6 +138,7 @@ class AppModel extends BaseModel
         }
         return ['messages' => $messages, 'avatar' => $avatar];
     }
+
 
     public function newMessage($newMessage)
     {

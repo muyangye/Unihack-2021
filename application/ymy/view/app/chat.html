@@ -16,6 +16,7 @@
     <span id="messages" style="display: none;">{$messages}</span>
     <span id="who" style="display: none;">{$who}</span>
     <span id="avatar" style="display: none;">{$avatar}</span>
+    <span id="people" style="display: none;">{$people}</span>
     <div class="container">
         <div class="row clearfix">
             <div class="col-lg-12">
@@ -64,6 +65,7 @@
     const who = document.querySelector('#who').textContent;
     const avatar = document.querySelector('#avatar').textContent;
     var messages = JSON.parse(document.querySelector('#messages').textContent);
+    var people = JSON.parse(document.querySelector('#people').textContent);
 
     const getAllMessage = (nameToChat, image) => {
         // 请求nameToChat 和 user 的来聊天记录
@@ -85,29 +87,26 @@
 
     const getPeopleList = () => {
         // 请求与user 最匹配的五个人
-        avator = [{
-                'myAvator': '1022709.jpeg',
-                'whoAvator': "Yutong",
-                'age': 12
-            },
-            {
-                'myAvator': '1022709.jpeg',
-                'whoAvator': "Muyang",
-                'age': 12
-            },
-            {
-                'myAvator': '1022709.jpeg',
-                'whoAvator': "Yilin",
-                'age': 12
-            },
-            {
-                'myAvator': '1022709.jpeg',
-                'whoAvator': "Peter",
-                'age': 12
-            },
-        ]
+        // avator = [{
+        //         'avator_url': '1022709.jpeg',
+        //         'name': "Yutong",
+        //     },
+        //     {
+        //         'avator_url': '1022709.jpeg',
+        //         'name': "Muyang",
+        //     },
+        //     {
+        //         'avator_url': '1022709.jpeg',
+        //         'name': "Yilin",
+        //     },
+        //     {
+        //         'avator_url': '1022709.jpeg',
+        //         'name': "Peter",
+        //     },
+        // ]
+        avator = people;
         for (people of avator) {
-            renderPeople(people['myAvator'], people['whoAvator'], people['age']);
+            renderPeople(people['avatar_url'], people['name']);
         }
     }
 
@@ -169,7 +168,7 @@
     }
 
 
-    const renderPeople = (var_image, var_username, var_age) => {
+    const renderPeople = (var_image, var_username) => {
         const peopleList = document.querySelector('.people-list ul');
 
         const people = document.createElement('li');
@@ -186,10 +185,10 @@
         name.classList.add('name');
         name.textContent = var_username;
         info.appendChild(name);
-        const age = document.createElement('div');
-        age.textContent = var_age + ' Years Old';
-        age.classList.add('status');
-        info.appendChild(age);
+        // const age = document.createElement('div');
+        // age.textContent = var_age + ' Years Old';
+        // age.classList.add('status');
+        // info.appendChild(age);
         people.appendChild(info);
 
         peopleList.appendChild(people);
